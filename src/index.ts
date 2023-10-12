@@ -6,6 +6,8 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import router from "./router";
+
 const app = express();
 
 app.use(
@@ -24,8 +26,7 @@ server.listen(8080, () => {
   console.log("server running on http://localhost:8080/");
 });
 
-const MONGO_URL =
-  "mongodb+srv://matisanpietro98:VxWfdzR5niZtWLao@cluster0.4bsza1p.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URL = "";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
@@ -38,3 +39,5 @@ db.on("error", (error) => {
 db.once("open", () => {
   console.log("Conexión a MongoDB establecida");
 });
+
+app.use("/", router());
