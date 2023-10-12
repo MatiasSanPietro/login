@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
+import mongoose from "mongoose";
 
 const app = express();
 
@@ -21,4 +22,19 @@ const server = http.createServer(app);
 
 server.listen(8080, () => {
   console.log("server running on http://localhost:8080/");
+});
+
+const MONGO_URL =
+  "mongodb+srv://matisanpietro98:VxWfdzR5niZtWLao@cluster0.4bsza1p.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGO_URL);
+
+const db = mongoose.connection;
+db.on("error", (error) => {
+  console.error("Error de conexión a MongoDB:", error);
+});
+
+db.once("open", () => {
+  console.log("Conexión a MongoDB establecida");
 });
